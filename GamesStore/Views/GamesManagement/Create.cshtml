@@ -1,0 +1,143 @@
+﻿@model GamesStore.Models.Game
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_ManagementLayoutPage.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "GamesManagement", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Game</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Condition, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Condition, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Condition, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Review, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Review, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Review, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupplierID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SupplierID", ViewBag.SupplierID as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @id = "Date" } })*@
+                <input type="date" id="Date" class="form-control" />
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="FilePhoto" id="FilePhoto" class="form-control" />
+                <span id="Error"></span>
+                <img id="ShowImage" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $("#Date").datepicker().val();
+        });
+
+        function showImage(src, target) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                target.src = fr.result; //<img src="H://file1.jpg" />
+            }
+            fr.readAsDataURL(src.files[0]);
+        }
+        function putImage() {
+            if (!document.getElementById("FilePhoto").files[0].type.match('image.*')) {
+                document.getElementById("ShowImage").style["display"] = "none";
+                document.getElementById("Error").innerHTML = "Please Select Image File";
+                document.getElementById("FilePhoto").value = "";
+            }
+            else {
+                document.getElementById("Error").innerHTML = "";
+                var src = document.getElementById("FilePhoto");
+                var target = document.getElementById("ShowImage");
+                target.style["display"] = "block";
+                showImage(src, target);
+            }
+        }
+        document.getElementById('FilePhoto').addEventListener('change', putImage, false);
+    </script>
+}
+
+@section Styles{
+    <style>
+        #ShowImage {
+            display: none;
+            height: 200px;
+            border: 1px solid #000;
+            margin: 10px 5px 0 0;
+            float: left;
+        }
+
+        #Error {
+            color: red;
+        }
+    </style>
+}

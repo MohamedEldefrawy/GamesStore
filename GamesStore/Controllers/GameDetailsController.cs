@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web.Mvc;
 
-namespace DafroGames.Controllers
+namespace GamesStore.Controllers
 {
     public class GameDetailsController : Controller
     {

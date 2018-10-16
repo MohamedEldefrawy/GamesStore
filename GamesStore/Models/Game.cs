@@ -4,7 +4,7 @@ namespace GamesStore.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+    using System.Web;
 
     public partial class Game
     {
@@ -34,6 +34,9 @@ namespace GamesStore.Models
 
         [Column(TypeName = "date")]
         public DateTime Date { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase FilePhoto { get; set; }
 
         public string Image { get; set; }
 
