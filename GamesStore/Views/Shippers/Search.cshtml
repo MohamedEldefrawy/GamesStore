@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_ManagementLayoutPage.cshtml";
+}
+
+@using (Ajax.BeginForm("Search", "GamesManagement", new { Search = "Search", Name = "Name" }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Shipper" }))
+{
+    <div>
+        <fieldset>
+            <legend>Search</legend>
+            @Html.RadioButton("Search", "Start with")Start with<br />
+            @Html.RadioButton("Search", "End with")End With<br />
+            @Html.RadioButton("Search", "Contains")Contains`<br />
+            <div>@Html.Label("Name")</div>
+            <div>@Html.TextBox("Name") <input type="submit" name="nameSubmit" value="Search" /></div>
+        </fieldset>
+    </div>
+}
+
+
+<hr />
+<div id="Shipper"></div>
+<hr />
+
+@section Scripts{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

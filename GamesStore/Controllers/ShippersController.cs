@@ -6,113 +6,108 @@ using System.Web.Mvc;
 
 namespace GamesStore.Controllers
 {
-    public class EmployeesController : Controller
+    public class ShippersController : Controller
     {
         private GamesEntities db = new GamesEntities();
 
         #region CRUD
-        // GET: Employees
+        // GET: Shippers
         public ActionResult Index()
         {
-            IQueryable<Employee> employees = db.Employees.Include(e => e.Employee2);
-            return View(employees.ToList());
+            return View(db.Shippers.ToList());
         }
 
-        // GET: Employees/Details/5
+        // GET: Shippers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Shipper shipper = db.Shippers.Find(id);
+            if (shipper == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(shipper);
         }
 
-        // GET: Employees/Create
+        // GET: Shippers/Create
         public ActionResult Create()
         {
-            ViewBag.ReportsTo = new SelectList(db.Employees, "ID", "Name");
             return View();
         }
 
-        // POST: Employees/Create
+        // POST: Shippers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Email,NationalID,Phone,Address,Title,Salary,ReportsTo")] Employee employee)
+        public ActionResult Create([Bind(Include = "ID,Name,Phone,Email")] Shipper shipper)
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
+                db.Shippers.Add(shipper);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ReportsTo = new SelectList(db.Employees, "ID", "Name", employee.ReportsTo);
-            return View(employee);
+            return View(shipper);
         }
 
-        // GET: Employees/Edit/5
+        // GET: Shippers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Shipper shipper = db.Shippers.Find(id);
+            if (shipper == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ReportsTo = new SelectList(db.Employees, "ID", "Name", employee.ReportsTo);
-            return View(employee);
+            return View(shipper);
         }
 
-        // POST: Employees/Edit/5
+        // POST: Shippers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Email,NationalID,Phone,Address,Title,Salary,ReportsTo")] Employee employee)
+        public ActionResult Edit([Bind(Include = "ID,Name,Phone,Email")] Shipper shipper)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                db.Entry(shipper).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ReportsTo = new SelectList(db.Employees, "ID", "Name", employee.ReportsTo);
-            return View(employee);
+            return View(shipper);
         }
 
-        // GET: Employees/Delete/5
+        // GET: Shippers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Shipper shipper = db.Shippers.Find(id);
+            if (shipper == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(shipper);
         }
 
-        // POST: Employees/Delete/5
+        // POST: Shippers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
+            Shipper shipper = db.Shippers.Find(id);
+            db.Shippers.Remove(shipper);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -136,26 +131,24 @@ namespace GamesStore.Controllers
         [HttpPost]
         public ActionResult Search(string Search, string Name)
         {
-
             switch (Search.ToLower())
             {
                 case "start with":
                     {
-                        return PartialView("_EmployeeSearch", db.Employees.Where(q => q.Name.StartsWith(Name)));
+                        return PartialView("_ShipperSearch", db.Games.Where(q => q.Name.StartsWith(Name)));
 
                     }
 
                 case "end with":
                     {
-                        return PartialView("_EmployeeSearch", db.Employees.Where(q => q.Name.EndsWith(Name)));
+                        return PartialView("_ShipperSearch", db.Games.Where(q => q.Name.EndsWith(Name)));
                     }
 
                 default:
                     {
-                        return PartialView("_EmployeeSearch", db.Employees.Where(q => q.Name.Contains(Name)));
+                        return View("_ShipperSearch", db.Games.Where(q => q.Name.Contains(Name)));
                     }
             }
-
         }
     }
 }
