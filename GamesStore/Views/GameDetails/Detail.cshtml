@@ -1,0 +1,41 @@
+﻿@model GamesStore.Models.Game
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <h4>Details</h4>
+    <hr />
+    <div class="col-md-9">
+
+        <div class="row">
+            <div id="gallery" class="col-md-3">
+                <img src="@Url.Action("fullImageUrl","GameDetails",new { path = Model.Image})" />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h3>@Model.Name  </h3>
+            <hr class="soft" />
+            <form class="form-horizontal qtyFrm">
+                <div class="control-group">
+                    <label class="control-label"><span>@Model.Price</span></label>
+                    <div class="controls">
+                        <input type="number" class="span1" placeholder="Qty." />
+                        <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="soft" />
+            <h4>@Model.Quantity in stock</h4>
+
+            <hr class="soft clr" />
+            <p>
+                @Model.Review
+            </p>
+        </div>
+    </div>
+</section>
