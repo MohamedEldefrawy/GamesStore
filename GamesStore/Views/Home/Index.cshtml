@@ -1,31 +1,49 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<GamesStore.Models.Game>
+
+@{
+    ViewBag.Title = "DafroGames";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<section>
+    <div id="carouselBlk">
+        <div id="myCarousel" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="container">
+                        @*<a href="register.html"><img style="width:100%" src="Content/themes/images/carousel/1.png" alt="special offers" /></a>*@
+                        @foreach (var item in Model.ToList())
+                        {
+                            @GamesStore.Helpers.CustomHtmlHelpers.ImageActionLink(Html, "Product1", "Detail", "GameDetails", new { ID = item.ID }, null, Url.Action("fullImageUrl", "Home", new { path = item.Image }))
+                            <div class="carousel-caption">
+                                <h4>Second Thumbnail label</h4>
+                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            </div>
+                        }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</section>
+
+<section>
+    <h4>Latest Products </h4>
+    <ul class="thumbnails">
+        @foreach (var item in Model.ToList())
+        {
+            <li class="col-md-3">
+                <div class="thumbnail">
+                    <i class="tag"></i>
+                    @GamesStore.Helpers.CustomHtmlHelpers.ImageActionLink(Html, "Product1", "Detail", "GameDetails", new { ID = item.ID }, null, Url.Action("fullImageUrl", new { path = item.Image }))
+                    <div class="caption">
+                        <h2>@item.Name</h2>
+                        <h3>@Html.ActionLink("View Details", "Detail", "GameDetails", new { ID = item.ID }, new { @class = "btn" }) <span class="pull-right">@item.Price</span></h3>
+                        <h4>@item.Review</h4>
+                        <h5>@item.Condition</h5>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</section>
