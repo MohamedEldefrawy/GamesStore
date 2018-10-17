@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace GamesStore.Models
 {
@@ -79,6 +80,24 @@ namespace GamesStore.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone number")]
+        [Phone]
+        [Required]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Address")]
+        [RegularExpression(@"^\d+\s[A-z]+\s[A-z]+", ErrorMessage = "please Enter valid address")]
+        [Required]
+        public string Address { get; set; }
+
+        [Display(Name = "Postal code")]
+        [RegularExpression(@"^\d+", ErrorMessage = "please Enter valid Postal code")]
+        public string PostalCode { get; set; }
+
+        [Display(Name = "Profile Picture")]
+        public HttpPostedFileBase FilePhoto { get; set; }
     }
 
     public class ResetPasswordViewModel

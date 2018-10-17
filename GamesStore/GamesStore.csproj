@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201810161218592_AddSecurity.Designer.cs">
       <DependentUpon>201810161218592_AddSecurity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810170900557_AddMorePropertiesToUSersTable.cs" />
+    <Compile Include="Migrations\201810170900557_AddMorePropertiesToUSersTable.Designer.cs">
+      <DependentUpon>201810170900557_AddMorePropertiesToUSersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -640,6 +644,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810161218592_AddSecurity.resx">
       <DependentUpon>201810161218592_AddSecurity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810170900557_AddMorePropertiesToUSersTable.resx">
+      <DependentUpon>201810170900557_AddMorePropertiesToUSersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

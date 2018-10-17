@@ -29,6 +29,7 @@
 
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    @RenderSection("Styles", false)
 </head>
 
 <body>
@@ -66,7 +67,7 @@
                         <li class="">@Html.ActionLink("Contact", "Index", "ContactUS")</li>
                         <li class="">@Html.ActionLink("Playstation", "Index", "PlayStation")</li>
                         <li class="">@Html.ActionLink("Management", "Index", "Management")</li>
-                        <li class="">@Html.ActionLink("Login","Login","Account")</li>
+                        <li class="">@Html.ActionLink("Login", "Login", "Account")</li>
                     </ul>
                 </div>
             </nav>
@@ -124,6 +125,6 @@
     <script src="~/Content/themes/js/jquery.lightbox-0.5.js"></script>
     <script src="~/Content/themes/js/google-code-prettify/prettify.js"></script>
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
-    @RenderSection("Scripts",false)
+    @RenderSection("Scripts", false)
 </body>
 </html>
